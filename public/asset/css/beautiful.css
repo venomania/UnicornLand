@@ -1,0 +1,10 @@
+.logo{
+    height: 40px;
+    
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 3%;
+}
