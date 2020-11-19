@@ -3,14 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @ORM\Id
@@ -30,21 +29,22 @@ class Users
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="user")
+     */
+    private $roles;
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
     private $password;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="user")
-     */
-    private $role;
-
-    /**
+        /**
      * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="likes")
      */
     private $likes;
@@ -56,7 +56,7 @@ class Users
 
     public function __construct()
     {
-        $this->role = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->shares = new ArrayCollection();
     }
@@ -102,43 +102,42 @@ class Users
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
+        return (string) $this->mail;
     }
 
     /**
+     * @see UserInterface
      * @return Collection|Roles[]
      */
-    public function getRole(): Collection
+    public function getRoles(): Collection
     {
-        return $this->role;
+        return $this->roles;
     }
 
-    public function addRole(Roles $role): self
+    public function addRoles(Roles $roles): self
     {
-        if (!$this->role->contains($role)) {
-            $this->role[] = $role;
+        if (!$this->roles->contains($roles)) {
+            $this->roles[] = $roles;
         }
 
         return $this;
     }
 
-    public function removeRole(Roles $role): self
+    public function removeRoles(Roles $roles): self
     {
-        $this->role->removeElement($role);
+        $this->roles->removeElement($roles);
 
         return $this;
     }
 
-    /**
+        /**
      * @return Collection|Articles[]
      */
     public function getLikes(): Collection
@@ -190,5 +189,37 @@ class Users
         }
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
