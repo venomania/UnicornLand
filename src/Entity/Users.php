@@ -34,9 +34,10 @@ class Users implements UserInterface
     private $mail;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="user")
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity=Roles::class, mappedBy="users", cascade={"persist"})
      */
-    private $roles;
+    private $userRoles;
 
     /**
      * @var string The hashed password
@@ -56,7 +57,7 @@ class Users implements UserInterface
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->shares = new ArrayCollection();
     }
@@ -113,26 +114,42 @@ class Users implements UserInterface
     }
 
     /**
-     * @see UserInterface
-     * @return Collection|Roles[]
+     * @return array|string[]
      */
-    public function getRoles(): Collection
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles->map(function($role){
+            return $role->getName();
+        })->toArray();
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function addRoles(Roles $roles): self
+    /**
+     * @return Collection|Roles[]
+     */
+    public function getUserRoles(): Collection
     {
-        if (!$this->roles->contains($roles)) {
-            $this->roles[] = $roles;
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Roles $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUser($this);
         }
 
         return $this;
     }
 
-    public function removeRoles(Roles $roles): self
+    public function removeUserRole(Roles $userRole): self
     {
-        $this->roles->removeElement($roles);
+        if ($this->userRoles->removeElement($userRole)) {
+            $userRole->removeUser($this);
+        }
 
         return $this;
     }

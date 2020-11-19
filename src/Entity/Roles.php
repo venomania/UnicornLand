@@ -25,13 +25,13 @@ class Roles
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="role")
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="userRoles")
      */
-    private $user;
+    private $users;
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,26 +54,23 @@ class Roles
     /**
      * @return Collection|Users[]
      */
-    public function getUser(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function addUser(Users $user): self
+    public function addUser(User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->addRole($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
     }
 
-    public function removeUser(Users $user): self
+    public function removeUser(User $user): self
     {
-        if ($this->user->removeElement($user)) {
-            $user->removeRole($this);
-        }
+        $this->users->removeElement($user);
 
         return $this;
     }
