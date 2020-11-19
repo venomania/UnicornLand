@@ -27,6 +27,24 @@ class Comments
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=States::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Articles::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $article;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +70,42 @@ class Comments
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getState(): ?States
+    {
+        return $this->state;
+    }
+
+    public function setState(?States $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Articles
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Articles $article): self
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

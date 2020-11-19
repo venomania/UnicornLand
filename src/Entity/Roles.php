@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RolesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class Roles
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="role")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +47,33 @@ class Roles
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(Users $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->addRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        if ($this->user->removeElement($user)) {
+            $user->removeRole($this);
+        }
 
         return $this;
     }
