@@ -1,4 +1,3 @@
-
 {% block body %}
 <link rel="stylesheet" href="/asset/css/loading.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -18,104 +17,76 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-    var 
-    myText = document.getElementById("bounceTxt").innerHTML,
-    wrapText = "";
+	<script>
+		var myText = document.getElementById("bounceTxt").innerHTML,
+wrapText = "";
 
-for (var i=0; i<myText.length; i++) {
-     wrapText += "<em>" + myText.charAt(i) + "</em>";
+for (var i = 0; i < myText.length; i++) {
+wrapText += "<em>" + myText.charAt(i) + "</em>";
 }
 
 document.getElementById("bounceTxt").innerHTML = wrapText;
 
-var 
-    myLetters = document.getElementsByTagName("em"),
-    j = 0;
+var myLetters = document.getElementsByTagName("em"),
+j = 0;
 
 function applyBounce() {
-     setTimeout(function() {
-          myLetters[j].className = "bounce-me";
-          j++;
-          
-          if (j < myLetters.length) {
-               applyBounce();
-          }
-     }, 250);
+setTimeout(function () {
+myLetters[j].className = "bounce-me";
+j++;
+
+if (j < myLetters.length) {
+applyBounce();
+}
+}, 250);
 }
 
 
+var myText = document.getElementById("bounceTxt1").innerHTML,
+wrapText = "";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    var 
-    myText = document.getElementById("bounceTxt1").innerHTML,
-    wrapText = "";
-
-for (var i=0; i<myText.length; i++) {
-     wrapText += "<em>" + myText.charAt(i) + "</em>";
+for (var i = 0; i < myText.length; i++) {
+wrapText += "<em>" + myText.charAt(i) + "</em>";
 }
 
 document.getElementById("bounceTxt1").innerHTML = wrapText;
 
-var 
-    myLetters = document.getElementsByTagName("em"),
-    j = 0;
+var myLetters = document.getElementsByTagName("em"),
+j = 0;
 
 function applyBounce() {
-     setTimeout(function() {
-          myLetters[j].className = "bounce-me";
-          j++;
-          
-          if (j < myLetters.length) {
-               applyBounce();
-          }
-     }, 250);
+setTimeout(function () {
+myLetters[j].className = "bounce-me";
+j++;
+
+if (j < myLetters.length) {
+applyBounce();
+}
+}, 250);
 }
 
 
+var myText = document.getElementById("bounceTxt2").innerHTML,
+wrapText = "";
 
-
-
-
-
-    var 
-    myText = document.getElementById("bounceTxt2").innerHTML,
-    wrapText = "";
-
-for (var i=0; i<myText.length; i++) {
-     wrapText += "<em>" + myText.charAt(i) + "</em>";
+for (var i = 0; i < myText.length; i++) {
+wrapText += "<em>" + myText.charAt(i) + "</em>";
 }
 
 document.getElementById("bounceTxt2").innerHTML = wrapText;
 
-var 
-    myLetters = document.getElementsByTagName("em"),
-    j = 0;
+var myLetters = document.getElementsByTagName("em"),
+j = 0;
 
 function applyBounce() {
-     setTimeout(function() {
-          myLetters[j].className = "bounce-me";
-          j++;
-          
-          if (j < myLetters.length) {
-               applyBounce();
-          }
-     }, 250);
+setTimeout(function () {
+myLetters[j].className = "bounce-me";
+j++;
+
+if (j < myLetters.length) {
+applyBounce();
+}
+}, 250);
 }
 
 applyBounce();
@@ -123,5 +94,5 @@ applyBounce();
 function RedirectionJavascript(){
   document.location.href="/accueil"; 
 }
-    </script>
+	</script>
 {% endblock %}
