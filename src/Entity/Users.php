@@ -103,6 +103,11 @@ class Users implements UserInterface
         return $this;
     }
 
+    public function __toString(){
+
+        return $this->firstName.' '.$this->lastName;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
