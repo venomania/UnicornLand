@@ -54,7 +54,7 @@ class Roles
     /**
      * @return Collection|Users[]
      */
-    public function getUser(): Collection
+    public function getUserd(): Collection
     {
         return $this->user;
     }
@@ -63,7 +63,7 @@ class Roles
     {
         if (!$this->user->contains($user)) {
             $this->user[] = $user;
-            $user->addRole($this);
+            $user->addRoles($this);
         }
 
         return $this;
@@ -72,9 +72,13 @@ class Roles
     public function removeUser(Users $user): self
     {
         if ($this->user->removeElement($user)) {
-            $user->removeRole($this);
+            $user->removeRoles($this);
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }

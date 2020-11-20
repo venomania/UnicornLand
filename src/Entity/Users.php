@@ -2,9 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Entity\Roles;
+use App\Entity\Articles;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
@@ -34,7 +39,9 @@ class Users implements UserInterface
     private $mail;
 
     /**
+     * @var Collection
      * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="user")
+     * @ORM\JoinTable(name="users_roles")
      */
     private $roles;
 
@@ -53,6 +60,8 @@ class Users implements UserInterface
      * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="shares")
      */
     private $shares;
+
+
 
     public function __construct()
     {
@@ -125,6 +134,7 @@ class Users implements UserInterface
     {
         if (!$this->roles->contains($roles)) {
             $this->roles[] = $roles;
+            $roles->addUser($this);
         }
 
         return $this;
@@ -137,7 +147,7 @@ class Users implements UserInterface
         return $this;
     }
 
-        /**
+    /**
      * @return Collection|Articles[]
      */
     public function getLikes(): Collection
@@ -163,6 +173,7 @@ class Users implements UserInterface
 
         return $this;
     }
+
 
     /**
      * @return Collection|Articles[]
@@ -222,4 +233,16 @@ class Users implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+    /**
+     * Set the value of likes
+     *
+     * @return  self
+     */ 
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
 }
