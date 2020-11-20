@@ -1,7 +1,6 @@
 {# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block page_title 'Accueil administration' %}
 
 {% block page_content %}
 
@@ -9,20 +8,46 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="stats col-6">
-				<h2>Nombre d'utilisateurs enregistrés</h2>
+			<div class="stats col-12">
 				<div class="col-12 alert-info">
-					<span class="display-3">{{countAllUsers['value']}}</span>
+					<h2>Derniers articles</h2>
 				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Catégorie</th>
+							<th>Auteur</th>
+							<th>Date</th>
+							<th>Titre</th>
+							<th>Image</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for article in article %}
+							<tr>
+								<td>{{ article.id }}</td>
+								<td>{{ article.category}}</td>
+								<td>{{ article.user }}</td>
+								<td>{{ article.date|date("d/m/Y")  }}</td>
+								<td>{{ article.title }}</td>
+								<td>{{ article.image }}</td>
+								<td class="linkShow">
+									<a href="{{ path('articles_show', {'id': article.id}) }}">Consulter</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
 			</div>
 
-			<div class="stats col-6">
-				<h2>Nombre d'articles</h2>
-				<div class="col-12 alert-success">
-					<span class="display-3">{{countAllUsers['value']}}</span>
-				</div>
-			</div>
 		</div>
 	</div>
-
+	{% include "include/footer.html.twig" %}
 {% endblock %}

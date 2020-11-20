@@ -1,0 +1,17 @@
+header nav {
+    width: 100%;
+}
+
+.main-sidebar {
+    background-color: transparent;
+}
+
+.table tr:hover>td {
+    background-color: #3c3c3c17;
+    cursor: pointer;
+}
+
+.linkShow a {
+    font-weight: bold;
+    color: green;
+}
