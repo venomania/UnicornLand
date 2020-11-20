@@ -36,6 +36,17 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->_em->flush();
     }
 
+    /**
+     * @return int
+     * Used to count all users for dashbord statistics
+     */
+    public function countAllUsers(){
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->select('COUNT(u.mail)as value');
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
     // /**
     //  * @return Users[] Returns an array of Users objects
     //  */

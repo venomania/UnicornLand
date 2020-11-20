@@ -54,7 +54,7 @@ class Roles
     /**
      * @return Collection|Users[]
      */
-    public function getUsers(): Collection
+    public function getUserd(): Collection
     {
         return $this->users;
     }
@@ -73,5 +73,9 @@ class Roles
         $this->users->removeElement($user);
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  */
@@ -39,7 +40,8 @@ class Users implements UserInterface
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity=Roles::class, mappedBy="users", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="user")
+     * @ORM\JoinTable(name="users_roles")
      */
     private $userRoles;
 
@@ -58,6 +60,8 @@ class Users implements UserInterface
      * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="shares")
      */
     private $shares;
+
+
 
     public function __construct()
     {
@@ -122,13 +126,13 @@ class Users implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles->map(function($role){
+        $userRoles = $this->userRoles->map(function($role){
             return $role->getName();
         })->toArray();
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $userRoles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        return array_unique($userRoles);
     }
 
     /**
@@ -158,7 +162,7 @@ class Users implements UserInterface
         return $this;
     }
 
-        /**
+    /**
      * @return Collection|Articles[]
      */
     public function getLikes(): Collection
@@ -184,6 +188,7 @@ class Users implements UserInterface
 
         return $this;
     }
+
 
     /**
      * @return Collection|Articles[]
@@ -243,4 +248,16 @@ class Users implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+    /**
+     * Set the value of likes
+     *
+     * @return  self
+     */ 
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
 }
