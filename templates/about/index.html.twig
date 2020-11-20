@@ -1,20 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AboutController!{% endblock %}
+{% block title %}A propos
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="button">
+		<a class="btn btn-primary" href="{{path('accueil')}}">Retour page accueil</a>
+	</div>
+	<div class="about">
+		<img src="{{ asset('/asset/pictures/about.png') }}" class="imgAbout"/>
+		<span class="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc finibus, risus at imperdiet venenatis, nibh enim posuere dui, quis blandit lectus augue quis lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut viverra nisi egestas semper gravida. Proin pharetra euismod placerat. Quisque id lorem ac ligula pellentesque faucibus et at sem. Maecenas pretium tellus lacus, a bibendum erat tincidunt quis. Aliquam erat volutpat. Donec suscipit nisi sem, id vulputate elit elementum quis. Cras tempor ante at laoreet egestas.
+																																										
+																																										Morbi nec justo convallis, iaculis magna eu, malesuada odio. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris id volutpat velit, eu pretium odio. Sed maximus libero orci, ac luctus odio pulvinar in. Mauris imperdiet turpis in justo tempor, sit amet imperdiet enim eleifend. Sed euismod tortor magna, et semper sapien tincidunt vitae. Pellentesque laoreet tortor nec congue feugiat. Duis tempor nisi ac dolor interdum, id pulvinar turpis molestie. Cras ut commodo eros. Proin eget laoreet tortor.
+																																										
+																																										Donec eu efficitur nisi, quis iaculis mauris. Vestibulum ac dolor ultricies, viverra nulla suscipit, commodo massa. Donec convallis arcu felis, non luctus quam condimentum ac. Fusce in neque tincidunt, vulputate massa eget, vulputate eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam eleifend nibh ac imperdiet finibus. Duis hendrerit bibendum ex, eget sollicitudin orci bibendum in. Curabitur ultricies ullamcorper pretium. Nullam rhoncus malesuada magna, et ultricies tortor lacinia et. Duis in luctus sapien, eget dignissim massa.
+																																										
+																																										Fusce placerat, tellus eget facilisis gravida, arcu justo tempus ex, gravida scelerisque ipsum purus ut tortor. Suspendisse ut augue feugiat, placerat libero non, volutpat nisl. Mauris a libero turpis. Vivamus tincidunt lorem eget eros auctor, a molestie nisl finibus. Suspendisse ultrices, ex id maximus cursus, eros nisi luctus ante, eu dignissim massa odio vitae nisl. Integer pharetra vehicula tellus, et venenatis nulla egestas sed. Vivamus enim eros, tincidunt vel volutpat non, consectetur ut massa. Mauris tincidunt nibh tincidunt, condimentum sapien in, ornare tellus. Cras nec orci eleifend, commodo dolor et, maximus ipsum. Vivamus a varius lectus. Cras in sollicitudin mauris, a viverra libero. Duis a nisi rhoncus, pellentesque dolor a, rhoncus risus. Pellentesque eleifend eros eu risus ornare pulvinar. Aenean auctor euismod neque vitae euismod. Curabitur vitae aliquam nunc, id facilisis lacus. Donec finibus nibh vitae condimentum fermentum.
+																																										
+																																										Etiam sed tellus condimentum, vehicula lectus ac, blandit lacus. Duis aliquam dui non libero porta mollis. Vestibulum at nibh vel urna malesuada accumsan in id magna. Curabitur sapien metus, bibendum at dictum quis, lobortis et lorem. Pellentesque efficitur vehicula ex ac dignissim. Nunc consequat eget risus sit amet feugiat. Curabitur scelerisque volutpat pellentesque. Vestibulum tristique ligula eleifend, viverra massa in, ornare tortor. Morbi eget felis a magna auctor finibus. Praesent in eros vitae arcu dignissim consequat. Curabitur ut volutpat diam.</span>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Valentin/Desktop/Git/UnicornLand/src/Controller/AboutController.php'|file_link(0) }}">src/Controller/AboutController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Valentin/Desktop/Git/UnicornLand/templates/about/index.html.twig'|file_link(0) }}">templates/about/index.html.twig</a></code></li>
-    </ul>
-</div>
+	</div>
 {% endblock %}
