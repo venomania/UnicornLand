@@ -13,7 +13,6 @@ class RolesType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('user')
         ;
     }
 

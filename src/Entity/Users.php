@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  */
@@ -40,8 +39,7 @@ class Users implements UserInterface
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="user")
-     * @ORM\JoinTable(name="users_roles")
+     * @ORM\ManyToMany(targetEntity=Roles::class, mappedBy="users", cascade={"persist"})
      */
     private $userRoles;
 
@@ -109,6 +107,11 @@ class Users implements UserInterface
         $this->mail = $mail;
 
         return $this;
+    }
+
+    public function __toString(){
+
+        return $this->firstName.' '.$this->lastName;
     }
 
     /**

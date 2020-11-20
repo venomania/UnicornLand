@@ -35,8 +35,17 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
+
+        $repoUsers = $this->getDoctrine()->getRepository(Users::class);
+        $users = $repoUsers->findAll();
+
+        $repoArticles = $this->getDoctrine()->getRepository(Articles::class);
+        $articles = $repoArticles->findAll();
+
         return $this->render('bundles/easyAdminBundle/welcome.html.twig',[
             'countAllUsers' => $this->UsersRepository->countAllUsers(),
+            'user' => $users,
+            'article' => $articles,
         ]);
     }
 
@@ -49,8 +58,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Accueil', 'fa fa-home');
-        yield MenuItem::linktoCrud('Utilisateurs', 'fas fa-users',Users::class);
-        yield MenuItem::linktoCrud('Articles', 'fas fa-marker',Articles::class);
+        yield MenuItem::linktoCrud('Utilisateurs', 'fas fa-users', Users::class);
+        yield MenuItem::linktoCrud('Articles', 'fas fa-marker', Articles::class);
         // yield MenuItem::linkToCrud('The Label', 'icon class', EntityClass::class);
     }
 }
