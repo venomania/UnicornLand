@@ -1,3 +1,100 @@
-<h1>Bienvenue dans le monde des licornes petit coquinou !</h1>
+{% block body %}
+	<link rel="stylesheet" href="/asset/css/loading.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<body onload="setTimeout('RedirectionJavascript()', 5000)">
 
-<img src="{{ asset('/asset/pictures/unicorn.jpg') }}" width="400"/>
+
+		<div class="chargement">
+			<div class="Tlicorne">
+				<h1 id="bounceTxt" class="Tcentre a1 ti">Bienvenue
+				</h1>
+				<h1 id="bounceTxt1" class="Tcentre a2 ti">Dans
+				</h1>
+				<h1 id="bounceTxt2" class="Tcentre a3 ti dec">Le_monde_des_licornes_!</h1>
+			</div>
+
+			<img src="{{ asset('/asset/pictures/test.png') }}" class="licorne"/>
+		</div>
+	</body>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		var myText = document.getElementById("bounceTxt").innerHTML,
+wrapText = "";
+
+for (var i = 0; i < myText.length; i++) {
+wrapText += "<em>" + myText.charAt(i) + "</em>";
+}
+
+document.getElementById("bounceTxt").innerHTML = wrapText;
+
+var myLetters = document.getElementsByTagName("em"),
+j = 0;
+
+function applyBounce() {
+setTimeout(function () {
+myLetters[j].className = "bounce-me";
+j++;
+
+if (j < myLetters.length) {
+applyBounce();
+}
+}, 250);
+}
+
+
+var myText = document.getElementById("bounceTxt1").innerHTML,
+wrapText = "";
+
+for (var i = 0; i < myText.length; i++) {
+wrapText += "<em>" + myText.charAt(i) + "</em>";
+}
+
+document.getElementById("bounceTxt1").innerHTML = wrapText;
+
+var myLetters = document.getElementsByTagName("em"),
+j = 0;
+
+function applyBounce() {
+setTimeout(function () {
+myLetters[j].className = "bounce-me";
+j++;
+
+if (j < myLetters.length) {
+applyBounce();
+}
+}, 250);
+}
+
+
+var myText = document.getElementById("bounceTxt2").innerHTML,
+wrapText = "";
+
+for (var i = 0; i < myText.length; i++) {
+wrapText += "<em>" + myText.charAt(i) + "</em>";
+}
+
+document.getElementById("bounceTxt2").innerHTML = wrapText;
+
+var myLetters = document.getElementsByTagName("em"),
+j = 0;
+
+function applyBounce() {
+setTimeout(function () {
+myLetters[j].className = "bounce-me";
+j++;
+
+if (j < myLetters.length) {
+applyBounce();
+}
+}, 250);
+}
+
+applyBounce();
+
+function RedirectionJavascript() {
+document.location.href = "/blog";
+}
+	</script>
+{% endblock %}

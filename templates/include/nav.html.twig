@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/asset/css/beautiful.css">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<a class="navbar-brand" href="#"><img src="{{ asset('/asset/pictures/Logo.png') }}" class="logo"/></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarColor01">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Accueil
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Contact</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Créer un compte</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav push-right mx-5">
+			{% if app.user %}
+				<li class="nav-item">
+					<a class="nav-link" href="">Déconnexion</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="">Administration</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="">Se connecter</a>
+				</li>
+			{% endif %}
+
+
+		</div>
+	</nav>
