@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Entity\Roles;
+use App\Entity\Articles;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
