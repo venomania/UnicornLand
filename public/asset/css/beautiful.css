@@ -1,16 +1,39 @@
 .logo{
     height: 40px;
-    
 }
+
 body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 3%;
 }
+<<<<<<< HEAD
 .conteneuri{
     width: 19%;
 }
 .cen{
     text-align: center;
+=======
+
+.button{
+    margin-top: 10px;
+    margin-left: 150px;
+    
+}
+
+.about{
+    background-color: #1a1a1a;
+    color: white;
+    margin-top: 20px;
+    margin-left: 120px;
+    margin-right: 120px;
+}
+
+.imgAbout{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+>>>>>>> d1fd41de79f8c19b016475de0b8465b6f019a0e7
 }
