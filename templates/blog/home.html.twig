@@ -1,21 +1,19 @@
 {% block body %}
-	<link rel="stylesheet" href="/asset/css/loading.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-	<body onload="setTimeout('RedirectionJavascript()', 5000)">
+<link rel="stylesheet" href="/asset/css/loading.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<body onLoad="setTimeout('RedirectionJavascript()', 3500)">
+     
+ 
+<div class="chargement">
+    <div class="Tlicorne">
+    <h1   id="bounceTxt" class="Tcentre a1 ti">Bienvenue  </h1>
+    <h1  id="bounceTxt1" class="Tcentre a2 ti">Dans </h1>
+    <h1  id="bounceTxt2" class="Tcentre a3 ti dec">Le_monde_des_licornes_!</h1>
+    </div>
 
-
-		<div class="chargement">
-			<div class="Tlicorne">
-				<h1 id="bounceTxt" class="Tcentre a1 ti">Bienvenue
-				</h1>
-				<h1 id="bounceTxt1" class="Tcentre a2 ti">Dans
-				</h1>
-				<h1 id="bounceTxt2" class="Tcentre a3 ti dec">Le_monde_des_licornes_!</h1>
-			</div>
-
-			<img src="{{ asset('/asset/pictures/test.png') }}" class="licorne"/>
-		</div>
-	</body>
+    <img src="{{ asset('/asset/pictures/test.png') }}" class="licorne"/>
+</div>
+</body>
 {% endblock %}
 
 {% block javascripts %}
@@ -93,8 +91,8 @@ applyBounce();
 
 applyBounce();
 
-function RedirectionJavascript() {
-document.location.href = "/blog";
+function RedirectionJavascript(){
+  document.location.href="/accueil"; 
 }
 	</script>
 {% endblock %}

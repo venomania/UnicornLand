@@ -20,6 +20,9 @@ security:
             guard:
                 authenticators:
                     - App\Security\BlogAuthenticator
+            form_login:
+                login_path: app_login
+                check_path: app_login
             logout:
                 path: app_logout
                 # where to redirect after logout
