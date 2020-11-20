@@ -5,6 +5,42 @@
 {% block body %}
     <h1>Articles index</h1>
 
+        {% for article in articles %}
+        <div class="conteneuri">
+            <div class="card mb-3">
+                    <h3 class="card-header">{{ article.title }}</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.subTitle }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</h6>
+                    
+                </div>
+                <img src="{{ asset('/asset/pictures/' ~ article.image) }}" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                <div class="card-body">
+                    <p class="card-text">{{ article.articleContent|slice(1,255) ~ '...' }}</p>
+                </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item cen"><a href="{{ path('articles_show', {'id': article.id}) }}" >Voir Plus</a></li>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <li class="list-group-item cen"><a href="{{ path('articles_edit', {'id': article.id}) }}">Edit</a></li>
+                        {% endif %}
+                    </ul>  
+            </div>    
+        </div>
+        {% else %}
+     
+        {% endfor %}
+
+    <a href="{{ path('articles_new') }}">Create new</a>
+{% endblock %}
+
+
+
+
+
+
+
+
+       {# 
     <table class="table">
         <thead>
             <tr>
@@ -18,28 +54,24 @@
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
+        <tbody> #}
+
+
+            {# <tr>
                 <td>{{ article.id }}</td>
                 <td>{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ article.title }}</td>
+                <td>{{ article.title }}</td>    
                 <td>{{ article.subTitle }}</td>
-                <td>{{ article.image }}</td>
+                <td><img src="{{ asset('/asset/pictures/' ~ article.image) }}"alt=""></td>
                 <td>{{ article.articleContent }}</td>
                 <td>{{ article.visibility ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('articles_show', {'id': article.id}) }}">show</a>
                     <a href="{{ path('articles_edit', {'id': article.id}) }}">edit</a>
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
+            </tr>#}
+     
+        {# </tbody>
     </table>
 
-    <a href="{{ path('articles_new') }}">Create new</a>
-{% endblock %}
+<div> #}
