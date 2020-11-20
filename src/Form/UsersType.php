@@ -5,14 +5,15 @@ namespace App\Form;
 use App\Entity\Roles;
 use App\Entity\Users;
 use App\Repository\RolesRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersType extends AbstractType
 {
@@ -30,25 +31,20 @@ class UsersType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
-            ->add('mail')
+            ->add('mail', EmailType::class)
             ->add('password',PasswordType::class)
             ->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use($encoder){
                 /** @var Users */
                 $user = $event->getData();
                 $form = $event->getForm();
-                if($user) {
+                if ($user) {
                     $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+                    /** @var Roles */
+                    foreach ($user->getUserRoles()->toArray() as $role) {
+                        $role->addUser($user);
+                    }
                 }})
-            ->add('roles',EntityType::class, [
-                'class' => Roles::class,
-                'multiple' => true,
-                'expanded' => true,
-                'query_builder' => function(RolesRepository $repo) {
-                    return $repo->createQueryBuilder('r');
-                }
-            ])
-            ->add('likes')
-            ->add('shares')
+            ->add('userRoles', EntityType::class, ['class' => Roles::class , 'multiple' => true, 'expanded' => true, 'choice_label' => 'name', 'choice_value' => 'id', ])
         ;
     }
 
