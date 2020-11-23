@@ -19,6 +19,26 @@ class ArticlesRepository extends ServiceEntityRepository
         parent::__construct($registry, Articles::class);
     }
 
+        /**
+     * @return int
+     * Used to count all articles for dashbord home
+     */
+    public function countAllArticles(){
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder->select('COUNT(a.id)as value');
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    public function getLastsArticles() {
+
+        $query = $this->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.id', 'DESC');   
+    
+        return $query->getQuery()->setMaxResults(5)->getResult();
+
+    }
 
     // /**
     //  * @return Articles[] Returns an array of Articles objects

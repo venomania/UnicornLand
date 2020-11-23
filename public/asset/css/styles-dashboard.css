@@ -1,4 +1,5 @@
-header nav {
+header nav,
+footer {
     width: 100%;
 }
 
@@ -14,4 +15,58 @@ header nav {
 .linkShow a {
     font-weight: bold;
     color: green;
+}
+
+.sidebar-menu li a:hover {
+    text-transform: none;
+    text-decoration: none;
+}
+
+.sidebar-menu li a:hover>span {
+    color: #202020;
+}
+
+thead tr th {
+    font-weight: bold;
+}
+
+.table td,
+.table th {
+    padding: .75rem;
+    vertical-align: middle;
+    border-top: 1px solid rgba(0, 0, 0, .05);
+}
+
+.stats div {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stats div h2 {
+    margin: 0;
+}
+
+.viewLink {
+    width: 214px;
+}
+
+.viewLink a {
+    margin: 0 43px;
+}
+
+.content-header {
+    padding: 10px;
+}
+
+.content-header:after,
+.content-header:before {
+    background: var(--body-bg);
+    content: "";
+    height: 100%;
+    left: -10px;
+    position: absolute;
+    top: 0;
+    /* width: 10px; */
 }

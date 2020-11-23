@@ -4,13 +4,13 @@
 
 {% block page_content %}
 
-
 	<div class="container">
 
 		<div class="row">
 			<div class="stats col-12">
 				<div class="col-12 alert-info">
 					<h2>Derniers articles</h2>
+					<a href="{{ path('articles_new')}}" class="action-new btn btn-primary">Créer nouvel article</a>
 				</div>
 				<table class="table">
 					<thead>
@@ -25,16 +25,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for article in article %}
+						{% for lastsArticle in lastsArticles %}
 							<tr>
-								<td>{{ article.id }}</td>
-								<td>{{ article.category}}</td>
-								<td>{{ article.user }}</td>
-								<td>{{ article.date|date("d/m/Y")  }}</td>
-								<td>{{ article.title }}</td>
-								<td>{{ article.image }}</td>
-								<td class="linkShow">
-									<a href="{{ path('articles_show', {'id': article.id}) }}">Consulter</a>
+								<td>{{ lastsArticle.id }}</td>
+								<td>{{ lastsArticle.category}}</td>
+								<td>{{ lastsArticle.user }}</td>
+								<td>{{ lastsArticle.date|date("d/m/Y")  }}</td>
+								<td>{{ lastsArticle.title }}</td>
+								<td><img src="{{ asset(lastsArticle.image) }}" width="200"></td>
+								<td class="viewLink">
+									<a href="{{ path('articles_show', {'id': lastsArticle.id}) }}" class="btn btn-success">Consulter</a>
 								</td>
 							</tr>
 						{% else %}
