@@ -124,6 +124,7 @@ localStorage.getItem('ea/sidebar/width') || '{{ ea.crud.sidebarWidth ?? ea.dashb
 									</section>
 
 									{% block content_footer_wrapper %}
+
 										{% set content_footer = block('content_footer') is defined ? block('content_footer') : '' %}
 										{% if content_footer is not empty %}
 											<section class="content-footer">
@@ -152,6 +153,11 @@ localStorage.getItem('ea/sidebar/width') || '{{ ea.crud.sidebarWidth ?? ea.dashb
 				{% for htmlContent in ea.assets.bodyContents ?? [] %}
 					{{ htmlContent|raw }}
 				{% endfor %}
+			{% endblock %}
+			{% block footer %}
+				<footer>
+					{% include "include/footer.html.twig" %}
+				</footer>
 			{% endblock %}
 		</body>
 	{% endblock body %}
