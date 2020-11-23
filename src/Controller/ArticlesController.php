@@ -2,13 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
+use App\Entity\States;
+use Doctrine\ORM\Query;
 use App\Entity\Articles;
+use App\Entity\Comments;
 use App\Form\ArticlesType;
+use App\Form\CommentsType;
+use App\Repository\StatesRepository;
 use App\Repository\ArticlesRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CommentsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/articles")
@@ -49,12 +56,42 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="articles_show", methods={"GET"})
+     * @Route("/{id}", name="articles_show", methods={"GET", "POST"})
      */
-    public function show(Articles $article): Response
+    public function show(Articles $article, CommentsRepository $commentsRepository, StatesRepository $statesRepository, Request $request, $id): Response
     {
+        $states = $this->getDoctrine()
+            ->getRepository(States::class)
+            ->findBy(array('state' => 'Waiting'));
+
+        $articles = $this->getDoctrine()
+            ->getRepository(Articles::class)
+            ->find($id);
+
+        $userLogged = $this->getUser();
+
+        $comment = new Comments();
+        $form = $this->createForm(CommentsType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $comment                    
+            ->setState($states)
+            ->setArticle($articles)
+            ->setUser($userLogged)
+            ;
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirect($id);
+        }
+
         return $this->render('articles/show.html.twig', [
             'article' => $article,
+            'comments' => $commentsRepository->findBy(array('article' => $id)),
+            'comment' => $comment,
+            'form' => $form->createView(),
         ]);
     }
 

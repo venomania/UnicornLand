@@ -1,20 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<h1>Articles</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Valentin/Desktop/Git/UnicornLand/src/Controller/AccueilController.php'|file_link(0) }}">src/Controller/AccueilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Valentin/Desktop/Git/UnicornLand/templates/accueil/index.html.twig'|file_link(0) }}">templates/accueil/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{% for article in articles %}
+		<div class="conteneuri">
+			<div class="card mb-3">
+				<h3 class="card-header">{{ article.title }}</h3>
+				<div class="card-body">
+					<h5 class="card-title">{{ article.subTitle }}</h5>
+					<h6 class="card-subtitle text-muted">{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</h6>
+				</div>
+				<img src="{{ asset('/asset/pictures/' ~ article.image) }}" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveaspectratio="xMidYMid slice" viewbox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+				<div class="card-body">
+					<p class="card-text">{{ article.articleContent|slice(1,255) ~ '...' }}</p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item cen">
+						<a href="{{ path('articles_show', {'id': article.id}) }}">Voir Plus</a>
+					</li>
+					{% if app.user and is_granted('ROLE_ADMIN') %}
+						<li class="list-group-item cen">
+							<a href="{{ path('articles_edit', {'id': article.id}) }}">Edit</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	{% endfor %}
+	{% if app.user  %}
+		<a href="{{ path('articles_new') }}">Create new</a>
+	{% endif %}
 {% endblock %}
