@@ -49,17 +49,17 @@ class Users implements UserInterface
      */
     private $password;
 
-        /**
-     * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="likes")
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="likes", cascade={"persist"})
      */
     private $likes;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="shares")
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity=Articles::class, mappedBy="shares", cascade={"persist"})
      */
     private $shares;
-
-
 
     public function __construct()
     {

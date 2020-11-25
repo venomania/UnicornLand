@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Entity\States;
+use App\Form\LikeType;
+use App\Form\ShareType;
 use Doctrine\ORM\Query;
 use App\Entity\Articles;
 use App\Entity\Comments;
@@ -77,9 +79,10 @@ class ArticlesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $comment                    
-            ->setState($states)
+            ->setState($states[0])
             ->setArticle($articles)
             ->setUser($userLogged)
+            ->setDate(new \DateTime('now'))
             ;
             $entityManager->persist($comment);
             $entityManager->flush();
@@ -87,8 +90,38 @@ class ArticlesController extends AbstractController
             return $this->redirect($id);
         }
 
+        $formLike = $this->createForm(LikeType::class, $userLogged);
+        $formLike->handleRequest($request);
+
+        if ($formLike->isSubmitted()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $userLogged                  
+            ->addLike($articles)
+            ;
+            $entityManager->persist($userLogged);
+            $entityManager->flush();
+
+            return $this->redirect($id);
+        }
+
+        $formShare = $this->createForm(ShareType::class, $userLogged);
+        $formShare->handleRequest($request);
+
+        if ($formShare->isSubmitted()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $userLogged                 
+            ->addShare($articles)
+            ;
+            $entityManager->persist($userLogged);
+            $entityManager->flush();
+
+            return $this->redirect($id);
+        }
+
         return $this->render('articles/show.html.twig', [
             'article' => $article,
+            'formLike' => $formLike->createView(),
+            'formShare' => $formShare->createView(),
             'comments' => $commentsRepository->findBy(array('article' => $id)),
             'comment' => $comment,
             'form' => $form->createView(),

@@ -16,6 +16,12 @@
 			<div class="card-body">
 				<p class="card-text">{{ article.articleContent|slice(1,255) ~ '...' }}</p>
 			</div>
+			{% if app.user %}
+				<div>
+					{{ include('like/_form.html.twig') }}
+					{{ include('share/_form.html.twig') }}
+				</div>
+			{% endif %}
 		</div>
 	</div>
 

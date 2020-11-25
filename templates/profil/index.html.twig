@@ -1,20 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Profil
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="profil">
+		<div class="card mb-3">
+			<h3 class="card-header">
+				{{ user.firstname }}
+				{{ user.lastname }}
+			</h3>
+			{# <div class="card-body">
+																																																										<h5 class="card-title">{{ user.lastname }}</h5>
+																																																										<h6 class="card-subtitle text-muted">{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</h6>
+																																																									</div>
+																																																									<img src="{{ asset('/asset/pictures/' ~ article.image) }}" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveaspectratio="xMidYMid slice" viewbox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+																																																									<div class="card-body">
+																																																										<p class="card-text">{{ article.articleContent|slice(1,255) ~ '...' }}</p>
+																																																									</div> #}
+		</div>
+	</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="accueil">
+		<div class="likeAccueil">
+			<h2>Likes</h2>
+			{% for i in 0..5 %}
+				{% if articleLike[i] is defined %}
+					{{ articleLike[i].title }}
+				{% endif %}
+			{% endfor %}
+		</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Valentin/Desktop/Git/UnicornLand/src/Controller/ProfilController.php'|file_link(0) }}">src/Controller/ProfilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Valentin/Desktop/Git/UnicornLand/templates/profil/index.html.twig'|file_link(0) }}">templates/profil/index.html.twig</a></code></li>
-    </ul>
-</div>
+		<div class="shareAccueil">
+			<h2>Shares</h2>
+			{% for i in 0..5 %}
+				{% if articleShare[i] is defined %}
+					{{ articleShare[i].title }}
+				{% endif %}
+			{% endfor %}
+		</div>
+
+		<div class="commentAccueil">
+			<h2>Comments</h2>
+			{% for i in 0..5 %}
+				{% if articleComment[i] is defined %}
+					{{ articleComment[i].title }}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="info">
+		{{ include('users/_form.html.twig') }}
+	</div>
+
+	<div class="likeAccueil">
+		<h2>Likes</h2>
+		{% for articlesLikes in articleLike %}
+			{{ articlesLikes.title }}
+		{% endfor %}
+	</div>
+
+	<div class="shareAccueil">
+		<h2>Shares</h2>
+		{% for articlesShares in articleShare %}
+			{{ articlesShares.title }}
+		{% endfor %}
+	</div>
+
+	<div class="commentAccueil">
+		<h2>Comments</h2>
+		{% for articlesComments in articleComment %}
+			{{ articlesComments.title }}
+		{% endfor %}
+	</div>
 {% endblock %}

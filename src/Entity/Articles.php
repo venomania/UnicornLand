@@ -64,6 +64,8 @@ class Articles
     /**
      * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="likes")
      * @ORM\JoinTable(name="Article_User_Like")
+     *  joinColumns={@ORM\JoinColumn(name="articles_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="users_id", referencedColumnName="id")}
      */
     private $likes;
 
