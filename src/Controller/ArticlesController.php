@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface; 
 
 /**
  * @Route("/articles")
@@ -27,10 +28,17 @@ class ArticlesController extends AbstractController
     /**
      * @Route("/", name="articles_index", methods={"GET"})
      */
-    public function index(ArticlesRepository $articlesRepository): Response
+    public function index(Request $request ,PaginatorInterface $paginator): Response
     {
+
+        $donnees = $this->getDoctrine()->getRepository(Articles::class)->findAll();
+        $articles = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            10
+        );
         return $this->render('articles/index.html.twig', [
-            'articles' => $articlesRepository->findAll(),
+            'articles' =>  $articles,
         ]);
     }
 

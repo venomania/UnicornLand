@@ -6,15 +6,15 @@
 
 {% block body %}
 	<div class="article">
-		<div class="card mb-3">
-			<h3 class="card-header">{{ article.title }}</h3>
-			<div class="card-body">
-				<h5 class="card-title">{{ article.subTitle }}</h5>
-				<h6 class="card-subtitle text-muted">{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</h6>
+		<div >
+			<h3 class="cshowArticle" >{{ article.title }}</h3>
+		
+				<h5 class="cshowArticle">{{ article.subTitle }}</h5>
+				<h6 >{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</h6>
 			</div>
-			<img src="{{ asset('/asset/pictures/' ~ article.image) }}" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveaspectratio="xMidYMid slice" viewbox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-			<div class="card-body">
-				<p class="card-text">{{ article.articleContent|slice(1,255) ~ '...' }}</p>
+			<img src="{{ article.image }}" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveaspectratio="xMidYMid slice" viewbox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+
+				<p>{{ article.articleContent }}</p>
 			</div>
 			{% if app.user %}
 				<div>
@@ -32,7 +32,7 @@
 					{{ comment.user }}
 				</h3>
 				<div class="card-body">
-					<h5 class="card-title">{{ comment.comment }}</h5>
+					<h6 class="card-title">{{ comment.comment }}</h6>
 					<h6 class="card-subtitle text-muted">{{ comment.date ? comment.date|date('Y-m-d H:i:s') : '' }}</h6>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 		</div>
 	{% endif %}
 	<div class="button">
-		<a class="btn btn-primary" href="{{ path('accueil') }}">Retour à l'accueil</a>
+		<a class="btn btn-primary ac" href="{{ path('accueil') }}">Retour à l'accueil</a>
 	</div>
 	{% if app.user and is_granted('ROLE_ADMIN') %}
 		<a href="{{ path('articles_edit', {'id': article.id}) }}">edit</a>
