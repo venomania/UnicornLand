@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Articles index</h1>
 {{ knp_pagination_render(articles) }}
-        {% for article in articles %}
+    <a style="margin-left: 1%;margin-bottom: 1%;" href="{{ path('articles_new') }}">Create new</a>
+        {% for article in articles|reverse %}
     <div>
         <div class="conteneuri">
             <div class="card mb-3">
@@ -21,9 +22,13 @@
                 </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item cen"><a href="{{ path('articles_show', {'id': article.id}) }}" >Voir Plus</a></li>
-                        {% if app.user and is_granted('ROLE_ADMIN') %}
-                            <li class="list-group-item cen"><a href="{{ path('articles_edit', {'id': article.id}) }}">Edit</a></li>
-                        {% endif %}
+                   	{% if app.user %}
+					{% if app.user.id == article.user.id  %}
+						<li class="list-group-item cen">
+							<a href="{{ path('articles_edit', {'id': article.id}) }}">Edit</a>
+						</li>
+					{% endif %}
+					{% endif %}
                     </ul>  
             </div>    
         </div>
@@ -31,7 +36,6 @@
      </div>
         {% endfor %}
 
-    <a href="{{ path('articles_new') }}">Create new</a>
 {% endblock %}
 
 
