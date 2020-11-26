@@ -10,18 +10,19 @@
 				{{ user.firstname }}
 				{{ user.lastname }}
 			</h3>
-			{# <div class="card-body">
-																																																										<h5 class="card-title">{{ user.lastname }}</h5>
-																																																										<h6 class="card-subtitle text-muted">{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</h6>
-																																																									</div>
-																																																									<img src="{{ asset('/asset/pictures/' ~ article.image) }}" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveaspectratio="xMidYMid slice" viewbox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-																																																									<div class="card-body">
-																																																										<p class="card-text">{{ article.articleContent|slice(1,255) ~ '...' }}</p>
-																																																									</div> #}
+			
 		</div>
 	</div>
 
-	<div class="accueil">
+	<ul>
+		<td><button onclick="display('home')">Accueil</button></td>
+		<td><button onclick="display('info')">Infos</button></td>
+		<td><button onclick="display('like')">Likes</button></td>
+		<td><button onclick="display('share')">Shares</button></td>
+		<td><button onclick="display('comment')">Comment</button></td>
+	</ul>
+
+	<div class="accueil" id="home">
 		<div class="likeAccueil">
 			<h2>Likes</h2>
 			{% for i in 0..5 %}
@@ -50,28 +51,40 @@
 		</div>
 	</div>
 
-	<div class="info">
+	<div class="info" id="info" style="display:none">
 		{{ include('users/_form.html.twig') }}
 	</div>
 
-	<div class="likeAccueil">
+	<div class="likeAccueil" id="like" style="display:none">
 		<h2>Likes</h2>
 		{% for articlesLikes in articleLike %}
 			{{ articlesLikes.title }}
 		{% endfor %}
 	</div>
 
-	<div class="shareAccueil">
+	<div class="shareAccueil" id="share" style="display:none">
 		<h2>Shares</h2>
 		{% for articlesShares in articleShare %}
 			{{ articlesShares.title }}
 		{% endfor %}
 	</div>
 
-	<div class="commentAccueil">
+	<div class="commentAccueil" id="comment" style="display:none">
 		<h2>Comments</h2>
 		{% for articlesComments in articleComment %}
 			{{ articlesComments.title }}
 		{% endfor %}
 	</div>
+
+	<script>
+		function display(divClass) {
+			document.getElementById("home").style.display = "none";
+			document.getElementById("info").style.display = "none";
+			document.getElementById("like").style.display = "none";
+			document.getElementById("share").style.display = "none";
+			document.getElementById("comment").style.display = "none";
+			document.getElementById(divClass).style.display = "block";
+		}
+	
+	</script>
 {% endblock %}
