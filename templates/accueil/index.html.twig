@@ -23,12 +23,13 @@
 					<li class="list-group-item cen">
 						<a href="{{ path('articles_show', {'id': article.id}) }}">Voir Plus</a>
 					</li>
-					{% if app.user and is_granted('ROLE_ADMIN') %}
+						{% if app.user %}
+					{% if app.user.id == article.user.id  %}
 						<li class="list-group-item cen">
 							<a href="{{ path('articles_edit', {'id': article.id}) }}">Edit</a>
 						</li>
 					{% endif %}
-					
+					{% endif %}
 				</ul>
 			</div>
 		</div>
