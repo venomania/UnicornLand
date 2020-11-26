@@ -17,9 +17,11 @@
 				<p>{{ article.articleContent }}</p>
 			</div>
 			{% if app.user %}
-				<div>
-					{{ include('like/_form.html.twig') }}
-					{{ include('share/_form.html.twig') }}
+				<div style="margin-left: auto;margin-right: auto;margin-bottom: 20px;">
+					<table>
+						<td style="color: white;background: #0e0e58;">{{ include('like/_form.html.twig') }}</td>
+						<td style="background: gainsboro;">{{ include('share/_form.html.twig') }}</td>
+					</table>
 				</div>
 			{% endif %}
 		</div>

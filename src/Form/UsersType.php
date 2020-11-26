@@ -44,10 +44,6 @@ class UsersType extends AbstractType
                         $role->addUser($user);
                     }
                 }})
-<<<<<<< HEAD
-=======
-                ->add('userRoles', EntityType::class, ['class' => Roles::class , 'multiple' => true, 'expanded' => true, 'choice_label' => 'name', 'choice_value' => 'id', ])
->>>>>>> c9fd42c (gestion)
         ;
     }
 
